@@ -29,12 +29,12 @@
                 <span class="text-xl font-bold tracking-widest text-white">SGPA-PMIS</span>
             </div>
             <nav class="mt-5 px-2 text-white">
-                <a href="#" class="group flex items-center rounded-md bg-army-green-800 px-2 py-2 text-sm font-medium text-white">
-                    <x-icon name="home" class="mr-3 h-5 w-5 flex-shrink-0 text-army-green-300" />
+                <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'bg-army-green-800 text-white' : 'text-army-green-100 hover:bg-army-green-700 hover:text-white' }} group flex items-center rounded-md px-2 py-2 text-sm font-medium">
+                    <x-icon name="home" class="mr-3 h-5 w-5 flex-shrink-0 {{ request()->routeIs('dashboard') ? 'text-army-green-300' : 'text-army-green-300 group-hover:text-white' }}" />
                     Dashboard
                 </a>
-                <a href="#" class="group mt-1 flex items-center rounded-md px-2 py-2 text-sm font-medium text-army-green-100 hover:bg-army-green-700 hover:text-white">
-                    <x-icon name="users" class="mr-3 h-5 w-5 flex-shrink-0 text-army-green-300 group-hover:text-white" />
+                <a href="{{ route('personnel.index') }}" class="{{ request()->is('personnel*') ? 'bg-army-green-800 text-white' : 'text-army-green-100 hover:bg-army-green-700 hover:text-white' }} group mt-1 flex items-center rounded-md px-2 py-2 text-sm font-medium">
+                    <x-icon name="users" class="mr-3 h-5 w-5 flex-shrink-0 {{ request()->is('personnel*') ? 'text-army-green-300' : 'text-army-green-300 group-hover:text-white' }}" />
                     Personnel
                 </a>
                 <a href="#" class="group mt-1 flex items-center rounded-md px-2 py-2 text-sm font-medium text-army-green-100 hover:bg-army-green-700 hover:text-white">
