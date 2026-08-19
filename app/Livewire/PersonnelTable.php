@@ -56,7 +56,8 @@ class PersonnelTable extends PowerGridComponent
         return [
             Column::make('ID', 'id')
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->hidden(),
 
             Column::make('First Name', 'first_name')
                 ->sortable()

@@ -52,7 +52,7 @@ class DeactivatedPersonnelTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('ID', 'id')->sortable()->searchable(),
+            Column::make('ID', 'id')->sortable()->searchable()->hidden(),
             Column::make('First Name', 'first_name')->sortable()->searchable(),
             Column::make('Last Name', 'last_name')->sortable()->searchable(),
             Column::make('Department', 'department')->sortable()->searchable(),
