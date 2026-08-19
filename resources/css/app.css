@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-
+@import '../../vendor/tallstackui/tallstackui/css/v4.css';
 @plugin '@tailwindcss/forms';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -37,6 +37,17 @@
     --color-primary-700: var(--color-army-green-700);
     --color-primary-800: var(--color-army-green-800);
     --color-primary-900: var(--color-army-green-900);
-    --color-primary-950: var(--color-army-green-950);
+    --color-pg-primary-50: var(--color-army-green-50);
+    --color-pg-primary-100: var(--color-army-green-100);
+    --color-pg-primary-200: var(--color-army-green-200);
+    --color-pg-primary-300: var(--color-army-green-300);
+    --color-pg-primary-400: var(--color-army-green-400);
+    --color-pg-primary-500: var(--color-army-green-500);
+    --color-pg-primary-600: var(--color-army-green-600);
+    --color-pg-primary-700: var(--color-army-green-700);
+    --color-pg-primary-800: var(--color-army-green-800);
+    --color-pg-primary-900: var(--color-army-green-900);
+    --color-pg-primary-950: var(--color-army-green-950);
 }
 
+@custom-variant dark (&:is(.dark *));

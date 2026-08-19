@@ -23,6 +23,10 @@ Route::middleware('guest')->group(function () {
 // Protected Routes
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
+    
+    // Personnel Routes
+    Route::get('/personnel', App\Livewire\Personnel\Index::class)->name('personnel.index');
+
     Route::post('/logout', function () {
         Illuminate\Support\Facades\Auth::logout();
         request()->session()->invalidate();
