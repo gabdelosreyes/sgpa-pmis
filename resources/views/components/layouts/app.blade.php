@@ -18,8 +18,8 @@
     @livewireStyles
 </head>
 <body class="h-full font-sans text-gray-900 antialiased selection:bg-army-green-500 selection:text-white">
-    <x-ts-toast />
-    <x-ts-dialog />
+    <x-toast />
+    <x-dialog />
     
     <div x-data="{ sidebarOpen: false }" class="flex h-screen overflow-hidden">
         
@@ -30,19 +30,19 @@
             </div>
             <nav class="mt-5 px-2 text-white">
                 <a href="#" class="group flex items-center rounded-md bg-army-green-800 px-2 py-2 text-sm font-medium text-white">
-                    <x-ts-icon name="home" class="mr-3 h-5 w-5 flex-shrink-0 text-army-green-300" />
+                    <x-icon name="home" class="mr-3 h-5 w-5 flex-shrink-0 text-army-green-300" />
                     Dashboard
                 </a>
                 <a href="#" class="group mt-1 flex items-center rounded-md px-2 py-2 text-sm font-medium text-army-green-100 hover:bg-army-green-700 hover:text-white">
-                    <x-ts-icon name="users" class="mr-3 h-5 w-5 flex-shrink-0 text-army-green-300 group-hover:text-white" />
+                    <x-icon name="users" class="mr-3 h-5 w-5 flex-shrink-0 text-army-green-300 group-hover:text-white" />
                     Personnel
                 </a>
                 <a href="#" class="group mt-1 flex items-center rounded-md px-2 py-2 text-sm font-medium text-army-green-100 hover:bg-army-green-700 hover:text-white">
-                    <x-ts-icon name="shield-check" class="mr-3 h-5 w-5 flex-shrink-0 text-army-green-300 group-hover:text-white" />
+                    <x-icon name="shield-check" class="mr-3 h-5 w-5 flex-shrink-0 text-army-green-300 group-hover:text-white" />
                     User Management
                 </a>
                 <a href="#" class="group mt-1 flex items-center rounded-md px-2 py-2 text-sm font-medium text-army-green-100 hover:bg-army-green-700 hover:text-white">
-                    <x-ts-icon name="clipboard-document-list" class="mr-3 h-5 w-5 flex-shrink-0 text-army-green-300 group-hover:text-white" />
+                    <x-icon name="clipboard-document-list" class="mr-3 h-5 w-5 flex-shrink-0 text-army-green-300 group-hover:text-white" />
                     Activity Logs
                 </a>
             </nav>
@@ -54,12 +54,20 @@
             <header class="flex h-16 items-center justify-between bg-white px-6 shadow-sm border-b border-gray-200">
                 <div class="flex items-center">
                     <button @click="sidebarOpen = true" class="text-gray-500 focus:outline-none md:hidden">
-                        <x-ts-icon name="bars-3" class="h-6 w-6" />
+                        <x-icon name="bars-3" class="h-6 w-6" />
                     </button>
                     <h2 class="ml-4 text-xl font-semibold text-gray-800">{{ $header ?? 'Dashboard' }}</h2>
                 </div>
-                <div class="flex items-center">
-                    <x-ts-avatar text="Admin" color="primary" />
+                <div class="flex items-center gap-4">
+                    <span class="text-sm font-medium text-gray-700">{{ auth()->user()->name ?? 'Guest' }}</span>
+                    <x-avatar text="{{ substr(auth()->user()->name ?? 'A', 0, 2) }}" color="primary" />
+                    
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="text-sm font-medium text-gray-500 hover:text-gray-700">
+                            Log out
+                        </button>
+                    </form>
                 </div>
             </header>
 
