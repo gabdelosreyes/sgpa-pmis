@@ -1,0 +1,42 @@
+@import 'tailwindcss';
+
+@plugin '@tailwindcss/forms';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../../vendor/tallstackui/tallstackui/src/**/*.php';
+@source '../../vendor/power-components/livewire-powergrid/src/**/*.php';
+@source '../../vendor/power-components/livewire-powergrid/resources/views/**/*.php';
+@source '../../resources/**/*.blade.php';
+@source '../../resources/**/*.js';
+@source '../../resources/**/*.vue';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-army-green-50: #f4f6f1;
+    --color-army-green-100: #e5ebe0;
+    --color-army-green-200: #cbdec1;
+    --color-army-green-300: #a7c897;
+    --color-army-green-400: #81ab6c;
+    --color-army-green-500: #628f4d;
+    --color-army-green-600: #4a6f3a;
+    --color-army-green-700: #3c5930;
+    --color-army-green-800: #324729;
+    --color-army-green-900: #293b23;
+    --color-army-green-950: #142010;
+    
+    --color-primary-50: var(--color-army-green-50);
+    --color-primary-100: var(--color-army-green-100);
+    --color-primary-200: var(--color-army-green-200);
+    --color-primary-300: var(--color-army-green-300);
+    --color-primary-400: var(--color-army-green-400);
+    --color-primary-500: var(--color-army-green-500);
+    --color-primary-600: var(--color-army-green-600);
+    --color-primary-700: var(--color-army-green-700);
+    --color-primary-800: var(--color-army-green-800);
+    --color-primary-900: var(--color-army-green-900);
+    --color-primary-950: var(--color-army-green-950);
+}
+
