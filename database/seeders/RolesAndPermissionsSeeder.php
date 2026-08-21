@@ -18,14 +18,16 @@ class RolesAndPermissionsSeeder extends Seeder
         $adminRole = Role::create(['name' => 'Admin']);
         $userRole = Role::create(['name' => 'User']);
 
-        // Create default super admin
-        $admin = User::create([
-            'name' => 'Super Admin',
-            'email' => 'admin@sgpa.mil.ph',
-            'password' => bcrypt('password'),
-            'is_active' => true,
-        ]);
-        
-        $admin->assignRole($adminRole);
+        activity()->withoutLogs(function () use ($adminRole) {
+            // Create default super admin
+            $admin = User::create([
+                'name' => 'Super Admin',
+                'email' => 'admin@sgpa.mil.ph',
+                'password' => bcrypt('password'),
+                'is_active' => true,
+            ]);
+            
+            $admin->assignRole($adminRole);
+        });
     }
 }

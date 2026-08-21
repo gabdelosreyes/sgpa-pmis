@@ -8,14 +8,19 @@
     <div class="mb-6 flex justify-between items-center">
         <p class="text-gray-600">Manage all active command personnel in this module.</p>
         <div class="flex gap-2">
+            @can('view personnel')
             <button wire:click="$toggle('showDeactivatedModal')" class="flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none">
                 <svg class="w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
                 Deactivated Roster
             </button>
+            @endcan
+            
+            @can('add personnel')
             <button wire:click="openCreateModal" class="flex items-center px-4 py-2 bg-army-green-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-army-green-700 focus:outline-none">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 Add Personnel
             </button>
+            @endcan
         </div>
     </div>
 
