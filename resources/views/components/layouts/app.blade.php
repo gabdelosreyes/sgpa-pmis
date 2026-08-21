@@ -37,14 +37,16 @@
                     <x-icon name="users" class="mr-3 h-5 w-5 flex-shrink-0 {{ request()->is('personnel*') ? 'text-army-green-300' : 'text-army-green-300 group-hover:text-white' }}" />
                     Personnel
                 </a>
-                <a href="#" class="group mt-1 flex items-center rounded-md px-2 py-2 text-sm font-medium text-army-green-100 hover:bg-army-green-700 hover:text-white">
-                    <x-icon name="shield-check" class="mr-3 h-5 w-5 flex-shrink-0 text-army-green-300 group-hover:text-white" />
+                @role('Admin')
+                <a href="{{ route('users.index') }}" class="{{ request()->routeIs('users.index') ? 'bg-army-green-800 text-white' : 'text-army-green-100 hover:bg-army-green-700 hover:text-white' }} group mt-1 flex items-center rounded-md px-2 py-2 text-sm font-medium">
+                    <x-icon name="shield-check" class="mr-3 h-5 w-5 flex-shrink-0 {{ request()->routeIs('users.index') ? 'text-army-green-300' : 'text-army-green-300 group-hover:text-white' }}" />
                     User Management
                 </a>
-                <a href="#" class="group mt-1 flex items-center rounded-md px-2 py-2 text-sm font-medium text-army-green-100 hover:bg-army-green-700 hover:text-white">
-                    <x-icon name="clipboard-document-list" class="mr-3 h-5 w-5 flex-shrink-0 text-army-green-300 group-hover:text-white" />
+                <a href="{{ route('activity-logs.index') }}" class="{{ request()->routeIs('activity-logs.index') ? 'bg-army-green-800 text-white' : 'text-army-green-100 hover:bg-army-green-700 hover:text-white' }} group mt-1 flex items-center rounded-md px-2 py-2 text-sm font-medium">
+                    <x-icon name="clipboard-document-list" class="mr-3 h-5 w-5 flex-shrink-0 {{ request()->routeIs('activity-logs.index') ? 'text-army-green-300' : 'text-army-green-300 group-hover:text-white' }}" />
                     Activity Logs
                 </a>
+                @endrole
             </nav>
         </div>
 

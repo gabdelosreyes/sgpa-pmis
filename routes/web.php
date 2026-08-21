@@ -27,6 +27,12 @@ Route::middleware('auth')->group(function () {
     // Personnel Routes
     Route::get('/personnel', App\Livewire\Personnel\Index::class)->name('personnel.index');
 
+    // Admin-only Routes
+    Route::middleware('role:Admin')->group(function () {
+        Route::get('/users', \App\Livewire\Users\Index::class)->name('users.index');
+        Route::get('/activity-logs', \App\Livewire\ActivityLogs\Index::class)->name('activity-logs.index');
+    });
+
     Route::post('/logout', function () {
         Illuminate\Support\Facades\Auth::logout();
         request()->session()->invalidate();

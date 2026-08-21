@@ -13,6 +13,8 @@ class PersonnelSeeder extends Seeder
      */
     public function run(): void
     {
-        Personnel::factory()->count(500)->create();
+        activity()->withoutLogs(function () {
+            Personnel::factory()->count(500)->create();
+        });
     }
 }
