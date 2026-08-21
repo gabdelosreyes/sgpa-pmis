@@ -25,11 +25,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
     
     // Personnel Routes
-    Route::get('/personnel', App\Livewire\Personnel\Index::class)->name('personnel.index');
+    Route::middleware('permission:view personnel')->group(function () {
+        Route::get('/personnel', App\Livewire\Personnel\Index::class)->name('personnel.index');
+    });
 
-    // Admin-only Routes
-    Route::middleware('role:Admin')->group(function () {
+    // Users Routes
+    Route::middleware('permission:view users')->group(function () {
         Route::get('/users', \App\Livewire\Users\Index::class)->name('users.index');
+    });
+
+    // Roles & Permissions Routes
+    Route::middleware('permission:view roles')->group(function () {
+        Route::get('/roles-permissions', \App\Livewire\RolesPermissions\Index::class)->name('roles-permissions.index');
+    });
+
+    // Activity Logs Routes
+    Route::middleware('permission:view activity logs')->group(function () {
         Route::get('/activity-logs', \App\Livewire\ActivityLogs\Index::class)->name('activity-logs.index');
     });
 

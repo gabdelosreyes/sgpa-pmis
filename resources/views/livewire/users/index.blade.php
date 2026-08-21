@@ -75,20 +75,49 @@
                 <form wire:submit="updateRoles" class="space-y-4">
                     <div>
                         <p class="text-sm text-gray-600 mb-4">Editing roles for <span class="font-semibold">{{ $activeUser->name }}</span> ({{ $activeUser->email }})</p>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Assign Roles</label>
-                        <div class="space-y-2 bg-gray-50 p-4 rounded-md border border-gray-200">
-                            @foreach($availableRoles as $role)
-                                <div class="flex items-center">
-                                    <input type="checkbox" wire:model="selectedRoles" value="{{ $role }}" id="role_{{ $role }}" class="h-4 w-4 text-army-green-600 focus:ring-army-green-500 border-gray-300 rounded">
-                                    <label for="role_{{ $role }}" class="ml-2 block text-sm text-gray-900 capitalize">
-                                        {{ $role }}
-                                    </label>
-                                </div>
-                            @endforeach
-                            @if(count($availableRoles) === 0)
-                                <p class="text-sm text-gray-500">No roles available in the system.</p>
-                            @endif
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Assign Roles</label>
+                            <div class="space-y-2 bg-gray-50 p-4 rounded-md border border-gray-200 h-48 overflow-y-auto">
+                                @foreach($availableRoles as $role)
+                                    <div class="flex items-center">
+                                        <input type="checkbox" wire:model="selectedRoles" value="{{ $role }}" id="role_{{ $role }}" class="h-4 w-4 text-army-green-600 focus:ring-army-green-500 border-gray-300 rounded">
+                                        <label for="role_{{ $role }}" class="ml-2 block text-sm text-gray-900 capitalize">
+                                            {{ $role }}
+                                        </label>
+                                    </div>
+                                @endforeach
+                                @if(count($availableRoles) === 0)
+                                    <p class="text-sm text-gray-500">No roles available.</p>
+                                @endif
+                            </div>
                         </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Direct Permissions</label>
+                            @if(in_array('Admin', $selectedRoles))
+                                <div class="mb-2 p-2 bg-blue-50 border border-blue-200 rounded text-sm text-blue-700">
+                                    Admins automatically inherit all permissions.
+                                </div>
+                            @endif
+                            <div class="space-y-2 bg-gray-50 p-4 rounded-md border border-gray-200 h-48 overflow-y-auto">
+                                @foreach($availablePermissions as $permission)
+                                    @php $isAdmin = in_array('Admin', $selectedRoles); @endphp
+                                    <div class="flex items-center">
+                                        <input type="checkbox" wire:model="selectedPermissions" value="{{ $permission }}" id="perm_{{ str_replace(' ', '_', $permission) }}" 
+                                            @if($isAdmin) disabled checked @endif
+                                            class="h-4 w-4 text-army-green-600 focus:ring-army-green-500 border-gray-300 rounded disabled:opacity-50 disabled:bg-gray-200">
+                                        <label for="perm_{{ str_replace(' ', '_', $permission) }}" class="ml-2 block text-sm text-gray-900 capitalize @if($isAdmin) opacity-50 @endif">
+                                            {{ str_replace('-', ' ', $permission) }}
+                                        </label>
+                                    </div>
+                                @endforeach
+                                @if(count($availablePermissions) === 0)
+                                    <p class="text-sm text-gray-500">No permissions available.</p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                     </div>
                     
                     <div class="mt-6 flex justify-end gap-3">

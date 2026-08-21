@@ -46,6 +46,8 @@ class Index extends Component
 
     public function save()
     {
+        abort_unless(auth()->user()->can('add personnel'), 403);
+        
         $this->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -74,6 +76,7 @@ class Index extends Component
     #[On('view-personnel')]
     public function viewPersonnel($id)
     {
+        abort_unless(auth()->user()->can('view personnel'), 403);
         $this->activePersonnel = Personnel::findOrFail($id);
         $this->showViewModal = true;
     }
@@ -81,6 +84,7 @@ class Index extends Component
     #[On('edit-personnel')]
     public function editPersonnel($id)
     {
+        abort_unless(auth()->user()->can('edit personnel'), 403);
         $this->resetForm();
         $this->activePersonnel = Personnel::findOrFail($id);
         
@@ -97,6 +101,8 @@ class Index extends Component
 
     public function update()
     {
+        abort_unless(auth()->user()->can('edit personnel'), 403);
+        
         $this->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -126,6 +132,7 @@ class Index extends Component
     #[On('delete-personnel')]
     public function deletePersonnel($id)
     {
+        abort_unless(auth()->user()->can('delete personnel'), 403);
         // Deactivate action from main table
         $personnel = Personnel::findOrFail($id);
         $personnel->update(['is_active' => false]);
@@ -137,6 +144,7 @@ class Index extends Component
     #[On('activate-personnel')]
     public function activatePersonnel($id)
     {
+        abort_unless(auth()->user()->can('edit personnel'), 403);
         $personnel = Personnel::findOrFail($id);
         $personnel->update(['is_active' => true]);
         $this->dispatch('pg:eventRefresh-personnel-table');
@@ -147,12 +155,14 @@ class Index extends Component
     #[On('permanent-delete-personnel')]
     public function triggerDeleteDialog($id)
     {
+        abort_unless(auth()->user()->can('delete personnel'), 403);
         $this->deleteId = $id;
         $this->showDeleteDialog = true;
     }
 
     public function confirmPermanentDelete()
     {
+        abort_unless(auth()->user()->can('delete personnel'), 403);
         if ($this->deleteId) {
             Personnel::findOrFail($this->deleteId)->delete();
             $this->showDeleteDialog = false;

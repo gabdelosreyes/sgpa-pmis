@@ -6,10 +6,12 @@ use Livewire\Component;
 use Livewire\Attributes\Layout;
 
 use Livewire\Attributes\On;
+use Livewire\Attributes\Title;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 
 #[Layout('components.layouts.app', ['header' => 'User Management'])]
+#[Title('User Management')]
 class Index extends Component
 {
     // Modals
@@ -22,44 +24,58 @@ class Index extends Component
     public ?User $activeUser = null;
     public $deleteId = null;
     
-    // Roles
+    // Roles & Permissions
     public $selectedRoles = [];
+    public $selectedPermissions = [];
     public $availableRoles = [];
+    public $availablePermissions = [];
 
     public function mount()
     {
         $this->availableRoles = Role::pluck('name')->toArray();
+        $this->availablePermissions = \Spatie\Permission\Models\Permission::pluck('name')->toArray();
+    }
+
+    private function resolveId($id)
+    {
+        return is_array($id) ? ($id['id'] ?? null) : $id;
     }
 
     #[On('view-user')]
     public function viewUser($id)
     {
-        $this->activeUser = User::findOrFail($id);
+        abort_unless(auth()->user()->can('view users'), 403);
+        $this->activeUser = User::findOrFail($this->resolveId($id));
         $this->showViewModal = true;
     }
 
     #[On('edit-user')]
     public function editUser($id)
     {
-        $this->activeUser = User::findOrFail($id);
+        abort_unless(auth()->user()->can('edit users'), 403);
+        $this->activeUser = User::findOrFail($this->resolveId($id));
         $this->selectedRoles = $this->activeUser->getRoleNames()->toArray();
+        $this->selectedPermissions = $this->activeUser->getDirectPermissions()->pluck('name')->toArray();
         $this->showEditRolesModal = true;
     }
 
     public function updateRoles()
     {
+        abort_unless(auth()->user()->can('edit users'), 403);
         if ($this->activeUser) {
             $this->activeUser->syncRoles($this->selectedRoles);
+            $this->activeUser->syncPermissions($this->selectedPermissions);
             $this->showEditRolesModal = false;
             $this->dispatch('pg:eventRefresh-users-table');
-            session()->flash('success', 'User roles updated successfully.');
+            session()->flash('success', 'User roles and permissions updated successfully.');
         }
     }
 
     #[On('deactivate-user')]
     public function deactivateUser($id)
     {
-        $user = User::findOrFail($id);
+        abort_unless(auth()->user()->can('delete users'), 403);
+        $user = User::findOrFail($this->resolveId($id));
         $user->update(['is_active' => false]);
         $this->dispatch('pg:eventRefresh-users-table');
         $this->dispatch('pg:eventRefresh-deactivated-users-table');
@@ -69,7 +85,8 @@ class Index extends Component
     #[On('reactivate-user')]
     public function reactivateUser($id)
     {
-        $user = User::findOrFail($id);
+        abort_unless(auth()->user()->can('edit users'), 403);
+        $user = User::findOrFail($this->resolveId($id));
         $user->update(['is_active' => true]);
         $this->dispatch('pg:eventRefresh-users-table');
         $this->dispatch('pg:eventRefresh-deactivated-users-table');
@@ -79,7 +96,8 @@ class Index extends Component
     #[On('delete-user')]
     public function triggerDeleteDialog($id)
     {
-        $this->deleteId = $id;
+        abort_unless(auth()->user()->can('delete users'), 403);
+        $this->deleteId = $this->resolveId($id);
         $this->showDeleteDialog = true;
     }
 
