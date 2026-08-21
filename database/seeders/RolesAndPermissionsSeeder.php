@@ -22,7 +22,7 @@ class RolesAndPermissionsSeeder extends Seeder
             // Create default super admin
             $admin = User::create([
                 'name' => 'Super Admin',
-                'email' => 'admin@sgpa.mil.ph',
+                'email' => 'admin@srpa.mil.ph',
                 'password' => bcrypt('password'),
                 'is_active' => true,
             ]);

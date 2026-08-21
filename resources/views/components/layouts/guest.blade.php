@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'SGPA-PMIS' }}</title>
+    <title>{{ $title ?? 'SRPA-PMIS' }}</title>
     
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
@@ -22,7 +22,7 @@
     
     <div class="w-full max-w-md p-6">
         <div class="flex justify-center mb-8">
-            <span class="text-3xl font-bold tracking-widest text-army-green-900">SGPA-PMIS</span>
+            <span class="text-3xl font-bold tracking-widest text-army-green-900">SRPA-PMIS</span>
         </div>
         
         {{ $slot }}

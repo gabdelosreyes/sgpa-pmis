@@ -1,4 +1,4 @@
-# Signal Regiment, Philippine Army - Personnel Management Information System (SGPA-PMIS)
+# Signal Regiment, Philippine Army - Personnel Management Information System (SRPA-PMIS)
 
 This repository contains the source code for the Personnel Management Information System of the Signal Regiment, Philippine Army.
 
